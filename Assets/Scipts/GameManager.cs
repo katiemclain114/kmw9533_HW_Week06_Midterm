@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //money text being set to money to show player what they have
     private void Update()
     {
         moneyText.text = Money + "";

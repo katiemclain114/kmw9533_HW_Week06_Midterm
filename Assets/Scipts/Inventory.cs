@@ -7,8 +7,10 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    //make singleton
     public static Inventory instance;
 
+    //canvas variables
     public GameObject invCanvas;
     public Text carrotText;
     public Text potatoText;
@@ -18,10 +20,13 @@ public class Inventory : MonoBehaviour
     public Text potatoSeedText;
     public Text beanSeedText;
 
+    //file variables
     private const string DIR = "/Logs";
     private const string FILE_INV = DIR + "/InventoryFile.csv";
     private string FILE_PATH_INV;
 
+    //plants and plant seeds and their properties 
+    //each property updates plant text and updates the file to match the data
     private int carrotsInv;
     public int CarrotsInv
     {
@@ -95,6 +100,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //setting that singleton 
     private void Awake()
     {
         if (instance == null)
@@ -108,6 +114,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //setting the path and spliting the file
     private void Start()
     {
         FILE_PATH_INV = Application.dataPath + FILE_INV;
@@ -116,10 +123,12 @@ public class Inventory : MonoBehaviour
 
     void SplitInvFile()
     {
+        //get each line which has letter and number
         string[] fileData = File.ReadAllLines(FILE_PATH_INV);
 
         for (int i = 0; i < fileData.Length; i++)
         {
+            //for each line set the number, row[1], of that plant, row[0], 
             string[] row = fileData[i].Split(',');
             switch (row[0])
             {
@@ -145,6 +154,9 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //i just rewrite the file with the current values any time a value is changed
+    //theres definitely a better way to do this like just changing the one value and have that be like 
+    // a char you sent to the function... but i didnt do it oops
     void UpdateFile()
     {
         string fileData = "";
@@ -157,6 +169,7 @@ public class Inventory : MonoBehaviour
         File.WriteAllText(FILE_PATH_INV, fileData);
     }
 
+    //when tab is pressed player can see inventory
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))

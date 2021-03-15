@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class PlantSpot : MonoBehaviour
 {
+    //check if player is on dirt
     private bool onDirt = false;
+    //allows to edit sprite attached to gameobject
     private SpriteRenderer plantSprite;
+    //colors according to what plant is planted
+    //i would want this to be an actual sprite change not color change
     public Color dirtColor;
     public Color carrotColor;
     public Color potatoColor;
     public Color beanColor;
+    
+    //enum that changes depending on the plant planted
     public enum PlantType
     {
         Carrot,
@@ -18,10 +24,14 @@ public class PlantSpot : MonoBehaviour
         Bean,
         Nothing
     };
-
-    public string PREF_KEY_PLANT;
     private PlantType plant = PlantType.Nothing;
-
+    
+    
+    //file stuff. kinda like reading from ascii but also kinda not
+    //also this isnt const cause there are lots of plant spots (see asciilevelloader)
+    public string PREF_KEY_PLANT;
+    
+    //couldnt use pref with enum so i'm using a seperate string and some good ol' switch statements
     private string prefString = "empty";
     public PlantType Plant
     {
@@ -30,6 +40,7 @@ public class PlantSpot : MonoBehaviour
             if (prefString == "empty")
             {
                 prefString = PlayerPrefs.GetString(PREF_KEY_PLANT, "nothing");
+                //switch enum depending on string
                 switch (prefString)
                 {
                     case "carrot":
@@ -51,6 +62,7 @@ public class PlantSpot : MonoBehaviour
         set
         {
             plant = value;
+            //set string to save into pref
             switch (plant)
             {
                 case PlantType.Carrot:
@@ -73,6 +85,7 @@ public class PlantSpot : MonoBehaviour
     private void Start()
     {
         plantSprite = GetComponent<SpriteRenderer>();
+        //initial color set
         switch (Plant)
         {
             case PlantType.Carrot:
@@ -96,6 +109,9 @@ public class PlantSpot : MonoBehaviour
         {
             switch (Plant)
             {
+                //if player on plant (not dirt) and they press e
+                //pick up plant and add it to inv
+                //change plantType back to nothing
                 case PlantType.Carrot:
                     plantSprite.color = carrotColor;
                     if (Input.GetKeyDown(KeyCode.E))
@@ -120,6 +136,7 @@ public class PlantSpot : MonoBehaviour
                         Plant = PlantType.Nothing;
                     }
                     break;
+                //if planType nothing press 1,2,3 to plant carrot potato bean
                 case PlantType.Nothing:
                     plantSprite.color = dirtColor;
                     if (Input.GetKeyDown(KeyCode.Alpha1))
