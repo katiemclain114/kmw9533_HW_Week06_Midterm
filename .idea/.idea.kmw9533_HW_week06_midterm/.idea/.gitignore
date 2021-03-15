@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.kmw9533_HW_week06_midterm.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../:\spring2021\codeLab01\week06_midterm\kmw9533_HW_week06_midterm\.idea\.idea.kmw9533_HW_week06_midterm\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
